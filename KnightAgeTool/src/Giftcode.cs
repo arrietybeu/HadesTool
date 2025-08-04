@@ -1,4 +1,5 @@
 ﻿using KnightAgeTool.src.model;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,6 +10,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Runtime.CompilerServices.RuntimeHelpers;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
@@ -25,6 +27,8 @@ namespace KnightAgeTool.src
         private DataBaseManager database2;
 
         private ItemView itemView;
+
+        private AddGift addGiftView;
 
         public Giftcode(DataBaseManager database, DataBaseManager database2)
         {
@@ -152,6 +156,10 @@ namespace KnightAgeTool.src
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+            if (e.RowIndex < 0 || e.ColumnIndex < 0)
+            {
+                return;
+            }
 
             if (e.RowIndex >= 0 && dataGridView1.Columns[e.ColumnIndex] is DataGridViewButtonColumn)
             {
@@ -175,6 +183,113 @@ namespace KnightAgeTool.src
             {
                 MessageBox.Show("Mầy đã click vào ô dữ liệu: " + dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString());
             }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            using (var confirmForm = new Form())
+            {
+                confirmForm.Text = "XÁC NHẬN XÓA TOÀN BỘ";
+                confirmForm.StartPosition = FormStartPosition.CenterParent;
+                confirmForm.Size = new Size(400, 150);
+                confirmForm.FormBorderStyle = FormBorderStyle.FixedDialog;
+                confirmForm.BackColor = Color.Black;
+                confirmForm.ForeColor = Color.White;
+                confirmForm.ControlBox = false;
+
+                Label lbl = new Label()
+                {
+                    Text = "Bạn có chắc muốn xóa toàn bộ dữ liệu bảng giftcode?",
+                    AutoSize = false,
+                    Size = new Size(360, 40),
+                    Location = new Point(20, 10),
+                    TextAlign = ContentAlignment.MiddleCenter,
+                    Font = new Font("Segoe UI", 10, FontStyle.Bold)
+                };
+                confirmForm.Controls.Add(lbl);
+
+                System.Windows.Forms.Button btnOK = new System.Windows.Forms.Button()
+                {
+                    Text = "OK",
+                    DialogResult = DialogResult.OK,
+                    Location = new Point(100, 70),
+                    BackColor = Color.Red,
+                    ForeColor = Color.White
+                };
+                confirmForm.Controls.Add(btnOK);
+
+                System.Windows.Forms.Button btnCancel = new System.Windows.Forms.Button()
+                {
+                    Text = "HỦY",
+                    DialogResult = DialogResult.Cancel,
+                    Location = new Point(200, 70),
+                    BackColor = Color.Gray,
+                    ForeColor = Color.White
+                };
+                confirmForm.Controls.Add(btnCancel);
+
+                confirmForm.AcceptButton = btnOK;
+                confirmForm.CancelButton = btnCancel;
+
+                if (confirmForm.ShowDialog() == DialogResult.OK)
+                {
+                    TruncateGiftcodeTable();
+                    MessageBox.Show("Đã xóa toàn bộ dữ liệu bảng giftcode!", "XÓA THÀNH CÔNG", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    LoadGiftcodes();
+                }
+            }
+        }
+
+        private void TruncateGiftcodeTable()
+        {
+            try
+            {
+                database.ExecuteNonQuery("TRUNCATE TABLE gift_code");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi truncate bảng gift_code:\n" + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+
+        private void LoadGiftcodes()
+        {
+            string query = "SELECT id, CODE, amount, start, end, need_active, items_reward, players_entered FROM gift_code";
+            DataTable table = database.ExecuteQuery(query);
+
+            dataGridView1.Rows.Clear();
+            foreach (DataRow row in table.Rows)
+            {
+                dataGridView1.Rows.Add(
+                    row["id"],
+                    row["CODE"],
+                    row["amount"],
+                    row["start"],
+                    row["end"],
+                    row["need_active"],
+                    row["items_reward"],
+                    row["players_entered"]
+                );
+            }
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+
+            if (addGiftView != null && !addGiftView.IsDisposed)
+            {
+                addGiftView.Close();
+            }
+
+            var addGift = new AddGift(database);
+            addGift.Show();
+
+            this.addGiftView = addGift;
         }
     }
 }

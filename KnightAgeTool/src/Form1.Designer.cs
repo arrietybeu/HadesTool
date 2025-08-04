@@ -246,6 +246,7 @@
             comboBox1.Size = new Size(293, 28);
             comboBox1.TabIndex = 11;
             comboBox1.Text = "TCP/IP";
+            comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
             // 
             // PortBox
             // 

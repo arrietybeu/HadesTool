@@ -45,6 +45,27 @@ namespace KnightAgeTool.src.model
                 return false;
             }
         }
+
+        public void ExecuteNonQuery(string query)
+        {
+            try
+            {
+                if (!isConnected)
+                {
+                    Connect();
+                }
+
+                using (MySqlCommand cmd = new MySqlCommand(query, connection))
+                {
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi thực thi truy vấn: " + ex.Message);
+            }
+        }
+
         public void CloseConnection()
         {
             if (connection != null && connection.State == System.Data.ConnectionState.Open)

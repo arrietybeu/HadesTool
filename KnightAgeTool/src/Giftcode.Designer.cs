@@ -33,6 +33,7 @@
             label3 = new Label();
             pictureBox2 = new PictureBox();
             groupBox1 = new GroupBox();
+            button1 = new Button();
             button6 = new Button();
             button5 = new Button();
             button4 = new Button();
@@ -90,6 +91,7 @@
             // 
             // groupBox1
             // 
+            groupBox1.Controls.Add(button1);
             groupBox1.Controls.Add(button6);
             groupBox1.Controls.Add(button5);
             groupBox1.Controls.Add(button4);
@@ -104,6 +106,19 @@
             groupBox1.TabStop = false;
             groupBox1.Text = "Giftcode";
             groupBox1.Enter += groupBox1_Enter;
+            // 
+            // button1
+            // 
+            button1.FlatStyle = FlatStyle.Flat;
+            button1.ForeColor = SystemColors.ButtonHighlight;
+            button1.Location = new Point(998, 197);
+            button1.Margin = new Padding(3, 4, 3, 4);
+            button1.Name = "button1";
+            button1.Size = new Size(86, 52);
+            button1.TabIndex = 10;
+            button1.Text = "DELETE ALL";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
             // 
             // button6
             // 
@@ -121,7 +136,7 @@
             // 
             button5.FlatStyle = FlatStyle.Flat;
             button5.ForeColor = SystemColors.ButtonHighlight;
-            button5.Location = new Point(998, 197);
+            button5.Location = new Point(998, 257);
             button5.Margin = new Padding(3, 4, 3, 4);
             button5.Name = "button5";
             button5.Size = new Size(86, 31);
@@ -141,6 +156,7 @@
             button4.TabIndex = 7;
             button4.Text = "ADD";
             button4.UseVisualStyleBackColor = true;
+            button4.Click += button4_Click;
             // 
             // button3
             // 
@@ -153,6 +169,7 @@
             button3.TabIndex = 6;
             button3.Text = "EDIT";
             button3.UseVisualStyleBackColor = true;
+            button3.Click += button3_Click;
             // 
             // button2
             // 
@@ -169,6 +186,7 @@
             // 
             // dataGridView1
             // 
+            dataGridView1.AllowUserToAddRows = false;
             dataGridView1.AllowUserToResizeColumns = false;
             dataGridView1.AllowUserToResizeRows = false;
             dataGridView1.BackgroundColor = SystemColors.Control;
@@ -281,5 +299,6 @@
         private DataGridViewButtonColumn Column7;
         private DataGridViewTextBoxColumn Column8;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
+        private Button button1;
     }
 }

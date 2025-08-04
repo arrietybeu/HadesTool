@@ -31,6 +31,8 @@ namespace KnightAgeTool.src
             this.itemJson = itemJson;
 
             panel1.MouseDown += new MouseEventHandler(panel1_MouseDown);
+            label3.MouseDown += new MouseEventHandler(panel1_MouseDown);
+
             dataGridView1.EnableHeadersVisualStyles = false;
         }
 

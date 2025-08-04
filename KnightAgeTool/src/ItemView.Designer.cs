@@ -77,7 +77,7 @@
             // 
             groupBox1.Controls.Add(dataGridView1);
             groupBox1.ForeColor = Color.Silver;
-            groupBox1.Location = new Point(4, 38);
+            groupBox1.Location = new Point(12, 38);
             groupBox1.Name = "groupBox1";
             groupBox1.Size = new Size(667, 400);
             groupBox1.TabIndex = 8;
@@ -90,18 +90,18 @@
             dataGridView1.AllowUserToResizeColumns = false;
             dataGridView1.AllowUserToResizeRows = false;
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(18, 38);
+            dataGridView1.Location = new Point(8, 38);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowHeadersVisible = false;
             dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(556, 337);
+            dataGridView1.Size = new Size(653, 337);
             dataGridView1.TabIndex = 0;
             // 
             // ItemView
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(683, 450);
+            ClientSize = new Size(691, 450);
             Controls.Add(groupBox1);
             Controls.Add(panel1);
             FormBorderStyle = FormBorderStyle.None;

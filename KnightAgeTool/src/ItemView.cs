@@ -38,64 +38,103 @@ namespace KnightAgeTool.src
 
         private void ItemView_Load(object sender, EventArgs e)
         {
-
-            label3.Text = $"ItemView ID: {this.idGiftCode}, CODE: {code}";
-
-            this.BackColor = System.Drawing.Color.FromArgb(45, 45, 48);
-            panel1.BackColor = System.Drawing.Color.FromArgb(37, 37, 38);// rgb(37, 37, 38)
-
-            groupBox1.BackColor = System.Drawing.Color.FromArgb(37, 37, 38);
-
-            dataGridView1.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(45, 45, 48);
-            dataGridView1.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
-            dataGridView1.ColumnHeadersDefaultCellStyle.SelectionBackColor = Color.FromArgb(60, 60, 64);
-
-            // Dòng dữ liệu
-            dataGridView1.RowsDefaultCellStyle.BackColor = Color.FromArgb(37, 37, 38);
-            dataGridView1.RowsDefaultCellStyle.ForeColor = Color.White;
-            dataGridView1.RowsDefaultCellStyle.SelectionBackColor = Color.FromArgb(70, 70, 75);
-            dataGridView1.RowsDefaultCellStyle.SelectionForeColor = Color.White;
-
-            // Border & grid
-            dataGridView1.GridColor = Color.FromArgb(55, 55, 60);
-            dataGridView1.BackgroundColor = Color.FromArgb(37, 37, 38);
-            dataGridView1.BorderStyle = BorderStyle.None;
-
-            foreach (DataGridViewColumn col in dataGridView1.Columns)
+            try
             {
-                if (col is DataGridViewButtonColumn btnCol)
+                label3.Text = $"ItemView ID: {this.idGiftCode}, CODE: {code}";
+
+                this.BackColor = Color.FromArgb(45, 45, 48);
+                panel1.BackColor = Color.FromArgb(37, 37, 38);
+                groupBox1.BackColor = Color.FromArgb(37, 37, 38);
+
+                dataGridView1.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(45, 45, 48);
+                dataGridView1.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+                dataGridView1.ColumnHeadersDefaultCellStyle.SelectionBackColor = Color.FromArgb(60, 60, 64);
+
+                dataGridView1.RowsDefaultCellStyle.BackColor = Color.FromArgb(37, 37, 38);
+                dataGridView1.RowsDefaultCellStyle.ForeColor = Color.White;
+                dataGridView1.RowsDefaultCellStyle.SelectionBackColor = Color.FromArgb(70, 70, 75);
+                dataGridView1.RowsDefaultCellStyle.SelectionForeColor = Color.White;
+
+                dataGridView1.GridColor = Color.FromArgb(55, 55, 60);
+                dataGridView1.BackgroundColor = Color.FromArgb(37, 37, 38);
+                dataGridView1.BorderStyle = BorderStyle.None;
+
+                dataGridView1.Columns.Clear();
+
+                // Thêm cột icon đầu tiên
+                DataGridViewImageColumn imageCol = new DataGridViewImageColumn();
+                imageCol.Name = "icon";
+                imageCol.HeaderText = "Icon";
+                imageCol.ImageLayout = DataGridViewImageCellLayout.Zoom;
+                dataGridView1.Columns.Add(imageCol);
+
+                // Các cột còn lại
+                dataGridView1.Columns.Add("temp_id", "Item ID");
+                dataGridView1.Columns.Add("item_name", "Name");
+                dataGridView1.Columns.Add("quantity", "Quantity");
+                dataGridView1.Columns.Add("options", "Options");
+
+                foreach (DataGridViewColumn col in dataGridView1.Columns)
                 {
-                    btnCol.DefaultCellStyle.BackColor = Color.FromArgb(60, 60, 64);
-                    btnCol.DefaultCellStyle.ForeColor = Color.White;
-                    btnCol.FlatStyle = FlatStyle.Flat;
+                    if (col is DataGridViewButtonColumn btnCol)
+                    {
+                        btnCol.DefaultCellStyle.BackColor = Color.FromArgb(60, 60, 64);
+                        btnCol.DefaultCellStyle.ForeColor = Color.White;
+                        btnCol.FlatStyle = FlatStyle.Flat;
+                    }
+                }
+
+                var items = JsonSerializer.Deserialize<List<ItemData>>(itemJson);
+
+                foreach (var item in items)
+                {
+                    var (itemName, iconId) = GetItemInfo(item.TempId);
+                    Image icon = LoadItemIcon(iconId);
+
+                    string optionText = string.Join("; ", item.Options.Select(o => $"[{o.Id}:{o.Param}]"));
+                    dataGridView1.Rows.Add(icon, item.TempId, itemName, item.Quantity, optionText);
                 }
             }
-
-            var items = JsonSerializer.Deserialize<List<ItemData>>(itemJson);
-            dataGridView1.Columns.Clear();
-            dataGridView1.Columns.Add("temp_id", "Item ID");
-            dataGridView1.Columns.Add("item_name", "Name");
-            dataGridView1.Columns.Add("quantity", "Quantity");
-            dataGridView1.Columns.Add("options", "Options");
-
-            foreach (var item in items)
+            catch (Exception ex)
             {
-                string itemName = GetItemName(item.TempId);
-
-                string optionText = string.Join("; ", item.Options.Select(o => $"[{o.Id}:{o.Param}]"));
-                dataGridView1.Rows.Add(item.TempId, itemName, item.Quantity, optionText);
+                MessageBox.Show("Lỗi: " + ex.Message);
             }
         }
 
-        private string GetItemName(int itemId)
+        private (string Name, int IconId) GetItemInfo(int itemId)
         {
-            string query = $"SELECT NAME FROM item_template WHERE id = {itemId} LIMIT 1";
+            string query = $"SELECT name, icon_id FROM item_template WHERE id = {itemId} LIMIT 1";
             var table = itemDb.ExecuteQuery(query);
 
             if (table.Rows.Count > 0)
-                return table.Rows[0]["NAME"].ToString();
+            {
+                string name = table.Rows[0]["name"].ToString();
+                int iconId = Convert.ToInt32(table.Rows[0]["icon_id"]);
+                return (name, iconId);
+            }
 
-            return "Unknown";
+            return ("Unknown", -1);
+        }
+
+        private Image LoadItemIcon(int iconId)
+        {
+            try
+            {
+                string path = Path.Combine("images", "icon", $"{iconId}.png");
+                if (File.Exists(path))
+                {
+                    using (var bmpTemp = new Bitmap(path))
+                    {
+                        return new Bitmap(bmpTemp);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Lỗi khi tải icon: " + e.Message);
+            }
+
+            return null;
         }
 
 

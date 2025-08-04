@@ -66,6 +66,32 @@ namespace KnightAgeTool.src.model
             }
         }
 
+        public void ExecuteNonQuery(string query, Dictionary<string, object> parameters)
+        {
+            try
+            {
+                if (!isConnected)
+                {
+                    Connect();
+                }
+
+                using (MySqlCommand cmd = new MySqlCommand(query, connection))
+                {
+                    foreach (var param in parameters)
+                    {
+                        cmd.Parameters.AddWithValue(param.Key, param.Value ?? DBNull.Value);
+                    }
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi thực thi truy vấn: " + ex.Message);
+            }
+        }
+
+
         public void CloseConnection()
         {
             if (connection != null && connection.State == System.Data.ConnectionState.Open)

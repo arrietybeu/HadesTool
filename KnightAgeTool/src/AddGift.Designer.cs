@@ -29,24 +29,28 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddGift));
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             panel1 = new Panel();
             label3 = new Label();
             pictureBox2 = new PictureBox();
             groupBox1 = new GroupBox();
+            StartDataTime = new Guna.UI2.WinForms.Guna2DateTimePicker();
+            EndDataTime = new Guna.UI2.WinForms.Guna2DateTimePicker();
             button2 = new Button();
-            comboBox5 = new ComboBox();
+            typeBox = new ComboBox();
             label8 = new Label();
             button1 = new Button();
             label7 = new Label();
             checkBox1 = new CheckBox();
             label6 = new Label();
-            comboBox4 = new ComboBox();
-            comboBox3 = new ComboBox();
             label5 = new Label();
             label4 = new Label();
-            comboBox2 = new ComboBox();
+            amountBox = new ComboBox();
             label2 = new Label();
-            comboBox1 = new ComboBox();
+            codeBox = new ComboBox();
             label1 = new Label();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
@@ -87,20 +91,20 @@
             // 
             // groupBox1
             // 
+            groupBox1.Controls.Add(StartDataTime);
+            groupBox1.Controls.Add(EndDataTime);
             groupBox1.Controls.Add(button2);
-            groupBox1.Controls.Add(comboBox5);
+            groupBox1.Controls.Add(typeBox);
             groupBox1.Controls.Add(label8);
             groupBox1.Controls.Add(button1);
             groupBox1.Controls.Add(label7);
             groupBox1.Controls.Add(checkBox1);
             groupBox1.Controls.Add(label6);
-            groupBox1.Controls.Add(comboBox4);
-            groupBox1.Controls.Add(comboBox3);
             groupBox1.Controls.Add(label5);
             groupBox1.Controls.Add(label4);
-            groupBox1.Controls.Add(comboBox2);
+            groupBox1.Controls.Add(amountBox);
             groupBox1.Controls.Add(label2);
-            groupBox1.Controls.Add(comboBox1);
+            groupBox1.Controls.Add(codeBox);
             groupBox1.Controls.Add(label1);
             groupBox1.ForeColor = Color.Silver;
             groupBox1.Location = new Point(12, 38);
@@ -110,6 +114,36 @@
             groupBox1.TabStop = false;
             groupBox1.Text = "Arriety";
             // 
+            // StartDataTime
+            // 
+            StartDataTime.Checked = true;
+            StartDataTime.CustomizableEdges = customizableEdges5;
+            StartDataTime.Font = new Font("Segoe UI", 9F);
+            StartDataTime.Format = DateTimePickerFormat.Long;
+            StartDataTime.Location = new Point(133, 173);
+            StartDataTime.MaxDate = new DateTime(9998, 12, 31, 0, 0, 0, 0);
+            StartDataTime.MinDate = new DateTime(1753, 1, 1, 0, 0, 0, 0);
+            StartDataTime.Name = "StartDataTime";
+            StartDataTime.ShadowDecoration.CustomizableEdges = customizableEdges6;
+            StartDataTime.Size = new Size(375, 28);
+            StartDataTime.TabIndex = 34;
+            StartDataTime.Value = new DateTime(2025, 8, 5, 0, 36, 50, 641);
+            // 
+            // EndDataTime
+            // 
+            EndDataTime.Checked = true;
+            EndDataTime.CustomizableEdges = customizableEdges7;
+            EndDataTime.Font = new Font("Segoe UI", 9F);
+            EndDataTime.Format = DateTimePickerFormat.Long;
+            EndDataTime.Location = new Point(133, 220);
+            EndDataTime.MaxDate = new DateTime(9998, 12, 31, 0, 0, 0, 0);
+            EndDataTime.MinDate = new DateTime(1753, 1, 1, 0, 0, 0, 0);
+            EndDataTime.Name = "EndDataTime";
+            EndDataTime.ShadowDecoration.CustomizableEdges = customizableEdges8;
+            EndDataTime.Size = new Size(375, 28);
+            EndDataTime.TabIndex = 33;
+            EndDataTime.Value = new DateTime(2025, 8, 5, 0, 36, 50, 641);
+            // 
             // button2
             // 
             button2.Location = new Point(424, 339);
@@ -118,22 +152,23 @@
             button2.TabIndex = 32;
             button2.Text = "ADD ITEM";
             button2.UseVisualStyleBackColor = true;
+            button2.Click += button2_Click;
             // 
-            // comboBox5
+            // typeBox
             // 
-            comboBox5.FlatStyle = FlatStyle.Flat;
-            comboBox5.ForeColor = SystemColors.ButtonHighlight;
-            comboBox5.FormattingEnabled = true;
-            comboBox5.Location = new Point(133, 225);
-            comboBox5.Margin = new Padding(3, 4, 3, 4);
-            comboBox5.Name = "comboBox5";
-            comboBox5.Size = new Size(375, 28);
-            comboBox5.TabIndex = 31;
+            typeBox.FlatStyle = FlatStyle.Flat;
+            typeBox.ForeColor = SystemColors.ButtonHighlight;
+            typeBox.FormattingEnabled = true;
+            typeBox.Location = new Point(133, 126);
+            typeBox.Margin = new Padding(3, 4, 3, 4);
+            typeBox.Name = "typeBox";
+            typeBox.Size = new Size(375, 28);
+            typeBox.TabIndex = 31;
             // 
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new Point(26, 225);
+            label8.Location = new Point(25, 134);
             label8.Name = "label8";
             label8.Size = new Size(43, 20);
             label8.TabIndex = 30;
@@ -141,7 +176,7 @@
             // 
             // button1
             // 
-            button1.Location = new Point(133, 268);
+            button1.Location = new Point(133, 263);
             button1.Name = "button1";
             button1.Size = new Size(375, 29);
             button1.TabIndex = 29;
@@ -177,32 +212,10 @@
             label6.Size = new Size(0, 20);
             label6.TabIndex = 26;
             // 
-            // comboBox4
-            // 
-            comboBox4.FlatStyle = FlatStyle.Flat;
-            comboBox4.ForeColor = SystemColors.ButtonHighlight;
-            comboBox4.FormattingEnabled = true;
-            comboBox4.Location = new Point(133, 178);
-            comboBox4.Margin = new Padding(3, 4, 3, 4);
-            comboBox4.Name = "comboBox4";
-            comboBox4.Size = new Size(375, 28);
-            comboBox4.TabIndex = 25;
-            // 
-            // comboBox3
-            // 
-            comboBox3.FlatStyle = FlatStyle.Flat;
-            comboBox3.ForeColor = SystemColors.ButtonHighlight;
-            comboBox3.FormattingEnabled = true;
-            comboBox3.Location = new Point(133, 131);
-            comboBox3.Margin = new Padding(3, 4, 3, 4);
-            comboBox3.Name = "comboBox3";
-            comboBox3.Size = new Size(375, 28);
-            comboBox3.TabIndex = 24;
-            // 
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(25, 181);
+            label5.Location = new Point(25, 228);
             label5.Name = "label5";
             label5.Size = new Size(37, 20);
             label5.TabIndex = 23;
@@ -211,22 +224,22 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(25, 134);
+            label4.Location = new Point(25, 181);
             label4.Name = "label4";
             label4.Size = new Size(43, 20);
             label4.TabIndex = 22;
             label4.Text = "Start:";
             // 
-            // comboBox2
+            // amountBox
             // 
-            comboBox2.FlatStyle = FlatStyle.Flat;
-            comboBox2.ForeColor = SystemColors.ButtonHighlight;
-            comboBox2.FormattingEnabled = true;
-            comboBox2.Location = new Point(133, 81);
-            comboBox2.Margin = new Padding(3, 4, 3, 4);
-            comboBox2.Name = "comboBox2";
-            comboBox2.Size = new Size(375, 28);
-            comboBox2.TabIndex = 21;
+            amountBox.FlatStyle = FlatStyle.Flat;
+            amountBox.ForeColor = SystemColors.ButtonHighlight;
+            amountBox.FormattingEnabled = true;
+            amountBox.Location = new Point(133, 76);
+            amountBox.Margin = new Padding(3, 4, 3, 4);
+            amountBox.Name = "amountBox";
+            amountBox.Size = new Size(375, 28);
+            amountBox.TabIndex = 21;
             // 
             // label2
             // 
@@ -237,17 +250,17 @@
             label2.TabIndex = 20;
             label2.Text = "Số lượng: ";
             // 
-            // comboBox1
+            // codeBox
             // 
-            comboBox1.FlatStyle = FlatStyle.Flat;
-            comboBox1.ForeColor = SystemColors.ButtonHighlight;
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(133, 32);
-            comboBox1.Margin = new Padding(3, 4, 3, 4);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(375, 28);
-            comboBox1.TabIndex = 19;
-            comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
+            codeBox.FlatStyle = FlatStyle.Flat;
+            codeBox.ForeColor = SystemColors.ButtonHighlight;
+            codeBox.FormattingEnabled = true;
+            codeBox.Location = new Point(133, 27);
+            codeBox.Margin = new Padding(3, 4, 3, 4);
+            codeBox.Name = "codeBox";
+            codeBox.Size = new Size(375, 28);
+            codeBox.TabIndex = 19;
+            codeBox.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
             // 
             // label1
             // 
@@ -284,19 +297,19 @@
         private PictureBox pictureBox2;
         private GroupBox groupBox1;
         private Label label1;
-        private ComboBox comboBox1;
+        private ComboBox codeBox;
         private Label label2;
         private Label label4;
-        private ComboBox comboBox2;
+        private ComboBox amountBox;
         private Label label5;
-        private ComboBox comboBox4;
-        private ComboBox comboBox3;
         private Label label6;
         private CheckBox checkBox1;
         private Label label7;
         private Button button1;
         private Label label8;
-        private ComboBox comboBox5;
+        private ComboBox typeBox;
         private Button button2;
+        private Guna.UI2.WinForms.Guna2DateTimePicker EndDataTime;
+        private Guna.UI2.WinForms.Guna2DateTimePicker StartDataTime;
     }
 }

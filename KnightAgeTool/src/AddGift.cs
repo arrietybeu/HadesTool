@@ -22,7 +22,6 @@ namespace KnightAgeTool.src
 
             panel1.MouseDown += new MouseEventHandler(panel1_MouseDown);
             label3.MouseDown += new MouseEventHandler(panel1_MouseDown);
-
         }
 
         private void AddGift_Load(object sender, EventArgs e)
@@ -33,11 +32,18 @@ namespace KnightAgeTool.src
             button1.BackColor = System.Drawing.Color.FromArgb(37, 37, 38);
             button2.BackColor = System.Drawing.Color.FromArgb(37, 37, 38);
 
-            comboBox1.BackColor = System.Drawing.Color.FromArgb(37, 37, 38);
-            comboBox2.BackColor = System.Drawing.Color.FromArgb(37, 37, 38);
-            comboBox3.BackColor = System.Drawing.Color.FromArgb(37, 37, 38);
-            comboBox4.BackColor = System.Drawing.Color.FromArgb(37, 37, 38);
-            comboBox5.BackColor = System.Drawing.Color.FromArgb(37, 37, 38);
+            codeBox.BackColor = System.Drawing.Color.FromArgb(37, 37, 38);
+            amountBox.BackColor = System.Drawing.Color.FromArgb(37, 37, 38);
+            typeBox.BackColor = System.Drawing.Color.FromArgb(37, 37, 38);
+
+            EndDataTime.FillColor = Color.FromArgb(37, 37, 38);
+            EndDataTime.ForeColor = Color.White;
+            EndDataTime.BorderColor = Color.Gray;
+
+            StartDataTime.FillColor = Color.FromArgb(37, 37, 38);
+            StartDataTime.ForeColor = Color.White;
+            StartDataTime.BorderColor = Color.Gray;
+
         }
 
         private void pictureBox2_Click(object sender, EventArgs e)
@@ -71,12 +77,56 @@ namespace KnightAgeTool.src
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string code = codeBox.Text.Trim();
+                int amount = int.Parse(amountBox.Text.Trim());
+                long start = new DateTimeOffset(StartDataTime.Value).ToUnixTimeMilliseconds();
+                long end = new DateTimeOffset(EndDataTime.Value).ToUnixTimeMilliseconds();
+                int typeGift = int.Parse(typeBox.Text.Trim());
+                int needActive = checkBox1.Checked ? 1 : 0;
+                string itemsReward = "[]";
+
+                if (string.IsNullOrEmpty(code))
+                {
+                    MessageBox.Show("Vui lòng nhập CODE.");
+                    return;
+                }
+
+                string sql = @"INSERT INTO gift_code 
+                        (CODE, amount, start, end, need_active, items_reward, players_entered, type_gift) 
+                       VALUES 
+                        (@code, @amount, @start, @end, @need_active, @items_reward, '', @type_gift)";
+
+                var parameters = new Dictionary<string, object>
+        {
+            {"@code", code },
+            {"@amount", amount },
+            {"@start", start },
+            {"@end", end },
+            {"@need_active", needActive },
+            {"@items_reward", itemsReward },
+            {"@type_gift", typeGift }
+        };
+
+                database.ExecuteNonQuery(sql, parameters);
+
+                MessageBox.Show("Thêm giftcode thành công!");
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi: " + ex.Message);
+            }
         }
     }
 }

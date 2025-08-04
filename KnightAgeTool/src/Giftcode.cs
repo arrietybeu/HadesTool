@@ -1,4 +1,4 @@
-﻿using KnightAgeTool.src.database;
+﻿using KnightAgeTool.src.model;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -22,9 +22,14 @@ namespace KnightAgeTool.src
 
         private DataBaseManager database;
 
-        public Giftcode(DataBaseManager database)
+        private DataBaseManager database2;
+
+        private ItemView itemView;
+
+        public Giftcode(DataBaseManager database, DataBaseManager database2)
         {
             this.database = database;
+            this.database2 = database2;
 
             this.databaseName = this.database.GetDatabaseName();
 
@@ -66,6 +71,16 @@ namespace KnightAgeTool.src
             dataGridView1.GridColor = Color.FromArgb(55, 55, 60);
             dataGridView1.BackgroundColor = Color.FromArgb(37, 37, 38);
             dataGridView1.BorderStyle = BorderStyle.None;
+
+            foreach (DataGridViewColumn col in dataGridView1.Columns)
+            {
+                if (col is DataGridViewButtonColumn btnCol)
+                {
+                    btnCol.DefaultCellStyle.BackColor = Color.FromArgb(60, 60, 64);
+                    btnCol.DefaultCellStyle.ForeColor = Color.White;
+                    btnCol.FlatStyle = FlatStyle.Flat;
+                }
+            }
 
             //HostBox.BackColor = System.Drawing.Color.FromArgb(37, 37, 38);
             //UserBox.BackColor = System.Drawing.Color.FromArgb(37, 37, 38);
@@ -128,6 +143,38 @@ namespace KnightAgeTool.src
         private void button5_Click(object sender, EventArgs e)
         {
             dataGridView1.Rows.Clear();
+        }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+            if (e.RowIndex >= 0 && dataGridView1.Columns[e.ColumnIndex] is DataGridViewButtonColumn)
+            {
+                if (itemView != null && !itemView.IsDisposed)
+                {
+                    itemView.Close();
+                }
+
+                var row = dataGridView1.Rows[e.RowIndex];
+
+                int idGiftCode = Convert.ToInt32(row.Cells[0].Value);
+                string code = row.Cells[1].Value.ToString();
+                string itemsRewardJson = row.Cells[6].Value.ToString();
+
+                ItemView view = new ItemView(idGiftCode, code, itemsRewardJson, database2);
+                view.Show();
+
+                this.itemView = view;
+            }
+            else
+            {
+                MessageBox.Show("Mầy đã click vào ô dữ liệu: " + dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString());
+            }
         }
     }
 }

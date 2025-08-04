@@ -1,7 +1,7 @@
 ﻿using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using KnightAgeTool.src;
-using KnightAgeTool.src.database;
+using KnightAgeTool.src.model;
 
 namespace KnightAgeTool
 {

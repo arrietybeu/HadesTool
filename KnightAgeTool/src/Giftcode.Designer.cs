@@ -45,8 +45,9 @@
             Column4 = new DataGridViewTextBoxColumn();
             Column5 = new DataGridViewTextBoxColumn();
             Column6 = new DataGridViewTextBoxColumn();
-            Column7 = new DataGridViewTextBoxColumn();
+            Column7 = new DataGridViewButtonColumn();
             Column8 = new DataGridViewTextBoxColumn();
+            backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             groupBox1.SuspendLayout();
@@ -102,6 +103,7 @@
             groupBox1.TabIndex = 7;
             groupBox1.TabStop = false;
             groupBox1.Text = "Giftcode";
+            groupBox1.Enter += groupBox1_Enter;
             // 
             // button6
             // 
@@ -179,6 +181,7 @@
             dataGridView1.RowHeadersWidth = 51;
             dataGridView1.Size = new Size(944, 382);
             dataGridView1.TabIndex = 0;
+            dataGridView1.CellContentClick += dataGridView1_CellContentClick;
             // 
             // Column1
             // 
@@ -227,6 +230,8 @@
             Column7.HeaderText = "Items_reward";
             Column7.MinimumWidth = 6;
             Column7.Name = "Column7";
+            Column7.Resizable = DataGridViewTriState.True;
+            Column7.SortMode = DataGridViewColumnSortMode.Automatic;
             Column7.Width = 125;
             // 
             // Column8
@@ -262,18 +267,19 @@
         private PictureBox pictureBox2;
         private GroupBox groupBox1;
         private DataGridView dataGridView1;
+        private Button button2;
+        private Button button4;
+        private Button button3;
+        private Button button5;
+        private Button button6;
         private DataGridViewTextBoxColumn Column1;
         private DataGridViewTextBoxColumn Column2;
         private DataGridViewTextBoxColumn Column3;
         private DataGridViewTextBoxColumn Column4;
         private DataGridViewTextBoxColumn Column5;
         private DataGridViewTextBoxColumn Column6;
-        private DataGridViewTextBoxColumn Column7;
+        private DataGridViewButtonColumn Column7;
         private DataGridViewTextBoxColumn Column8;
-        private Button button2;
-        private Button button4;
-        private Button button3;
-        private Button button5;
-        private Button button6;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
     }
 }

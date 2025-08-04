@@ -36,6 +36,8 @@
             button2 = new Button();
             button3 = new Button();
             groupBox1 = new GroupBox();
+            label9 = new Label();
+            comboBox2 = new ComboBox();
             DatabaseBox = new ComboBox();
             PasswordBox = new ComboBox();
             UserBox = new ComboBox();
@@ -92,7 +94,7 @@
             // 
             button1.FlatStyle = FlatStyle.Flat;
             button1.ForeColor = SystemColors.ButtonHighlight;
-            button1.Location = new Point(322, 297);
+            button1.Location = new Point(323, 357);
             button1.Margin = new Padding(3, 4, 3, 4);
             button1.Name = "button1";
             button1.Size = new Size(86, 31);
@@ -105,7 +107,7 @@
             // 
             button2.FlatStyle = FlatStyle.Flat;
             button2.ForeColor = SystemColors.ButtonHighlight;
-            button2.Location = new Point(230, 297);
+            button2.Location = new Point(231, 357);
             button2.Margin = new Padding(3, 4, 3, 4);
             button2.Name = "button2";
             button2.Size = new Size(86, 31);
@@ -118,7 +120,7 @@
             // 
             button3.FlatStyle = FlatStyle.Flat;
             button3.ForeColor = SystemColors.ButtonHighlight;
-            button3.Location = new Point(16, 297);
+            button3.Location = new Point(9, 357);
             button3.Margin = new Padding(3, 4, 3, 4);
             button3.Name = "button3";
             button3.Size = new Size(123, 31);
@@ -129,6 +131,8 @@
             // 
             // groupBox1
             // 
+            groupBox1.Controls.Add(label9);
+            groupBox1.Controls.Add(comboBox2);
             groupBox1.Controls.Add(DatabaseBox);
             groupBox1.Controls.Add(PasswordBox);
             groupBox1.Controls.Add(UserBox);
@@ -149,11 +153,33 @@
             groupBox1.Margin = new Padding(3, 4, 3, 4);
             groupBox1.Name = "groupBox1";
             groupBox1.Padding = new Padding(3, 4, 3, 4);
-            groupBox1.Size = new Size(415, 343);
+            groupBox1.Size = new Size(415, 409);
             groupBox1.TabIndex = 4;
             groupBox1.TabStop = false;
             groupBox1.Text = "Connect to MySQL:";
             groupBox1.Enter += groupBox1_Enter;
+            // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Location = new Point(16, 275);
+            label9.Name = "label9";
+            label9.Size = new Size(75, 20);
+            label9.TabIndex = 17;
+            label9.Text = "Database:";
+            // 
+            // comboBox2
+            // 
+            comboBox2.FlatStyle = FlatStyle.Flat;
+            comboBox2.ForeColor = SystemColors.ButtonHighlight;
+            comboBox2.FormattingEnabled = true;
+            comboBox2.Location = new Point(114, 272);
+            comboBox2.Margin = new Padding(3, 4, 3, 4);
+            comboBox2.Name = "comboBox2";
+            comboBox2.Size = new Size(293, 28);
+            comboBox2.TabIndex = 16;
+            comboBox2.Text = "louisgoku_res";
+            comboBox2.SelectedIndexChanged += comboBox2_SelectedIndexChanged;
             // 
             // DatabaseBox
             // 
@@ -165,6 +191,7 @@
             DatabaseBox.Name = "DatabaseBox";
             DatabaseBox.Size = new Size(293, 28);
             DatabaseBox.TabIndex = 15;
+            DatabaseBox.Text = "louisgoku_user";
             DatabaseBox.SelectedIndexChanged += DatabaseBox_SelectedIndexChanged;
             // 
             // PasswordBox
@@ -178,6 +205,7 @@
             PasswordBox.Name = "PasswordBox";
             PasswordBox.Size = new Size(293, 28);
             PasswordBox.TabIndex = 14;
+            PasswordBox.Text = "jakengu";
             // 
             // UserBox
             // 
@@ -190,7 +218,7 @@
             UserBox.Name = "UserBox";
             UserBox.Size = new Size(293, 28);
             UserBox.TabIndex = 13;
-            UserBox.Text = "root";
+            UserBox.Text = "jakioccho";
             // 
             // HostBox
             // 
@@ -203,7 +231,8 @@
             HostBox.Name = "HostBox";
             HostBox.Size = new Size(293, 28);
             HostBox.TabIndex = 12;
-            HostBox.Text = "127.0.0.1";
+            HostBox.Text = "14.225.208.142";
+            HostBox.SelectedIndexChanged += HostBox_SelectedIndexChanged;
             // 
             // comboBox1
             // 
@@ -288,7 +317,7 @@
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.WindowFrame;
-            ClientSize = new Size(422, 385);
+            ClientSize = new Size(422, 458);
             Controls.Add(groupBox1);
             Controls.Add(panel1);
             FormBorderStyle = FormBorderStyle.None;
@@ -327,5 +356,7 @@
         private ComboBox UserBox;
         private ComboBox HostBox;
         private ComboBox comboBox1;
+        private Label label9;
+        private ComboBox comboBox2;
     }
 }

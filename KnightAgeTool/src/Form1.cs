@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml.Linq;
-using KnightAgeTool.src.database;
+using KnightAgeTool.src.model;
 using Microsoft.VisualBasic.ApplicationServices;
 using MySql.Data.MySqlClient;
 using static System.Windows.Forms.DataFormats;
@@ -23,6 +23,8 @@ namespace KnightAgeTool.src
 
         DataBaseManager database;
 
+
+        DataBaseManager database1;
         public Form1()
         {
             InitializeComponent();
@@ -43,6 +45,7 @@ namespace KnightAgeTool.src
             UserBox.BackColor = System.Drawing.Color.FromArgb(37, 37, 38);
             PasswordBox.BackColor = System.Drawing.Color.FromArgb(37, 37, 38);
             DatabaseBox.BackColor = System.Drawing.Color.FromArgb(37, 37, 38);
+            comboBox2.BackColor = System.Drawing.Color.FromArgb(37, 37, 38);
             PortBox.BackColor = System.Drawing.Color.FromArgb(37, 37, 38);
         }
 
@@ -90,21 +93,24 @@ namespace KnightAgeTool.src
                 string user = UserBox.Text;
                 string pass = PasswordBox.Text;
                 string database_name = DatabaseBox.Text;
+                string database = comboBox2.Text;
                 int port = (int)PortBox.Value;
 
-                if (string.IsNullOrWhiteSpace(host) || string.IsNullOrWhiteSpace(user) || string.IsNullOrWhiteSpace(database_name))
+                if (string.IsNullOrWhiteSpace(host) || string.IsNullOrWhiteSpace(user)
+                    || string.IsNullOrWhiteSpace(database_name) || string.IsNullOrWhiteSpace(database))
                 {
                     MessageBox.Show("Vui lòng điền đầy đủ thông tin vào tất cả các ô.");
                     return;
                 }
 
                 this.database = new DataBaseManager(host, port, user, pass, database_name);
+                this.database1 = new DataBaseManager(host, port, user, pass, database);
 
                 if (this.database.Connect())
                 {
                     this.Hide();
 
-                    using (Giftcode giftcodoe = new Giftcode(this.database))
+                    using (Giftcode giftcodoe = new Giftcode(this.database, database1))
                     {
                         giftcodoe.StartPosition = FormStartPosition.CenterParent;
                         giftcodoe.ShowDialog();
@@ -164,6 +170,16 @@ namespace KnightAgeTool.src
 
         private void DatabaseBox_SelectedIndexChanged(object sender, EventArgs e)
         {
+        }
+
+        private void HostBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

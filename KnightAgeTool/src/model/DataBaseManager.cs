@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
 
-namespace KnightAgeTool.src.database
+namespace KnightAgeTool.src.model
 {
     public class DataBaseManager
     {

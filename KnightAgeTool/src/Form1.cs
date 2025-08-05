@@ -28,6 +28,8 @@ namespace KnightAgeTool.src
 
         public static List<ItemInfo> AllItems = new List<ItemInfo>();
 
+        public static List<OptionInfo> options = new List<OptionInfo>();
+
         public Form1()
         {
             InitializeComponent();
@@ -114,6 +116,8 @@ namespace KnightAgeTool.src
 
                     this.LoadAllItems();
 
+                    this.loadOptions();
+
                     this.Hide();
 
                     using (Giftcode giftcodoe = new Giftcode(this.database, database1))
@@ -181,7 +185,7 @@ namespace KnightAgeTool.src
                 {
                     AllItems.Add(new ItemInfo
                     {
-                        Id = Convert.ToInt32(row["id"]),
+                        id = Convert.ToInt32(row["id"]),
                         Name = row["name"].ToString(),
                         IconId = Convert.ToInt32(row["icon_id"]),
                     });
@@ -196,6 +200,30 @@ namespace KnightAgeTool.src
             }
         }
 
+        private void loadOptions()
+        {
+
+            try
+            {
+
+                var table = database1.ExecuteQuery("SELECT id, name FROM item_option_template;");
+
+                options.Clear();
+
+                foreach (DataRow row in table.Rows)
+                {
+                    options.Add(new OptionInfo
+                    {
+                        id = Convert.ToInt32(row["id"]),
+                        name = row["name"].ToString(),
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi load options: " + ex.Message);
+            }
+        }
 
         private void button3_Click(object sender, EventArgs e)
         {

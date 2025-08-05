@@ -13,6 +13,7 @@ using System.Windows.Forms;
 using static System.Runtime.CompilerServices.RuntimeHelpers;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolBar;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 
 namespace KnightAgeTool.src

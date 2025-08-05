@@ -33,13 +33,29 @@ namespace KnightAgeTool.src.model
 
     public class ItemInfo
     {
-        public int Id { get; set; } 
+        public int id { get; set; }
         public string Name { get; set; }
         public int IconId { get; set; }
 
         public override string ToString()
         {
-            return $"{Name} (ID: {Id})";
+            return $"{Name} (ID: {id})";
+        }
+    }
+
+    public class OptionInfo()
+    {
+
+        public int id { get; set; }
+
+        [JsonIgnore]
+        public string name { get; set; }
+
+        public int param { get; set; }
+
+        public override string ToString()
+        {
+            return $"NAME: {name} (Param: {id})";
         }
     }
 

@@ -1,4 +1,5 @@
 ﻿using KnightAgeTool.src.model;
+using MySqlX.XDevAPI.Common;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,6 +10,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace KnightAgeTool.src
 {
@@ -17,6 +19,8 @@ namespace KnightAgeTool.src
         private DataBaseManager database;
 
         private AddItem itemView = null;
+
+        public static string itemsReward = "[]";
         public AddGift(DataBaseManager dataBaseManager)
         {
             InitializeComponent();
@@ -24,6 +28,8 @@ namespace KnightAgeTool.src
 
             panel1.MouseDown += new MouseEventHandler(panel1_MouseDown);
             label3.MouseDown += new MouseEventHandler(panel1_MouseDown);
+
+
         }
 
         private void AddGift_Load(object sender, EventArgs e)
@@ -33,6 +39,7 @@ namespace KnightAgeTool.src
             groupBox1.BackColor = System.Drawing.Color.FromArgb(37, 37, 38);
             button1.BackColor = System.Drawing.Color.FromArgb(37, 37, 38);
             button2.BackColor = System.Drawing.Color.FromArgb(37, 37, 38);
+            comboBox1.BackColor = System.Drawing.Color.FromArgb(37, 37, 38);
 
             codeBox.BackColor = System.Drawing.Color.FromArgb(37, 37, 38);
             amountBox.BackColor = System.Drawing.Color.FromArgb(37, 37, 38);
@@ -46,6 +53,13 @@ namespace KnightAgeTool.src
             StartDataTime.ForeColor = Color.White;
             StartDataTime.BorderColor = Color.Gray;
 
+            StartDataTime.Format = DateTimePickerFormat.Custom;
+            StartDataTime.CustomFormat = "dd/MM/yyyy HH:mm:ss";
+            StartDataTime.ShowUpDown = true;
+
+            EndDataTime.Format = DateTimePickerFormat.Custom;
+            EndDataTime.CustomFormat = "dd/MM/yyyy HH:mm:ss";
+            EndDataTime.ShowUpDown = true;
         }
 
         private void pictureBox2_Click(object sender, EventArgs e)
@@ -98,45 +112,159 @@ namespace KnightAgeTool.src
         {
             try
             {
-                string code = codeBox.Text.Trim();
-                int amount = int.Parse(amountBox.Text.Trim());
+                string baseCode = codeBox.Text.Trim();
+                int amountPerCode = int.Parse(amountBox.Text.Trim());
                 long start = new DateTimeOffset(StartDataTime.Value).ToUnixTimeMilliseconds();
                 long end = new DateTimeOffset(EndDataTime.Value).ToUnixTimeMilliseconds();
                 int typeGift = int.Parse(typeBox.Text.Trim());
                 int needActive = checkBox1.Checked ? 1 : 0;
-                string itemsReward = "[]";
 
-                if (string.IsNullOrEmpty(code))
+                // Lấy số lượng giftcode từ comboBox1
+                if (!int.TryParse(comboBox1.Text.Trim(), out int totalGiftCodes))
+                {
+                    MessageBox.Show("Vui lòng chọn số lượng giftcode hợp lệ từ danh sách.");
+                    return;
+                }
+
+                if (string.IsNullOrEmpty(baseCode))
                 {
                     MessageBox.Show("Vui lòng nhập CODE.");
                     return;
                 }
 
+                if (string.IsNullOrWhiteSpace(itemsReward))
+                {
+                    MessageBox.Show("Chưa có phần thưởng (items_reward).");
+                    return;
+                }
+
                 string sql = @"INSERT INTO gift_code 
-                        (CODE, amount, start, end, need_active, items_reward, players_entered, type_gift) 
-                       VALUES 
-                        (@code, @amount, @start, @end, @need_active, @items_reward, '', @type_gift)";
+            (CODE, amount, start, end, need_active, items_reward, players_entered, type_gift) 
+            VALUES 
+            (@code, @amount, @start, @end, @need_active, @items_reward, '[]', @type_gift)";
 
-                var parameters = new Dictionary<string, object>
-        {
-            {"@code", code },
-            {"@amount", amount },
-            {"@start", start },
-            {"@end", end },
-            {"@need_active", needActive },
-            {"@items_reward", itemsReward },
-            {"@type_gift", typeGift }
-        };
+                if (totalGiftCodes <= 1)
+                {
+                    // Chỉ insert đúng 1 code như người dùng nhập
+                    var parameters = new Dictionary<string, object>
+            {
+                {"@code", baseCode },
+                {"@amount", amountPerCode },
+                {"@start", start },
+                {"@end", end },
+                {"@need_active", needActive },
+                {"@items_reward", itemsReward },
+                {"@type_gift", typeGift }
+            };
 
-                database.ExecuteNonQuery(sql, parameters);
+                    database.ExecuteNonQuery(sql, parameters);
+                }
+                else
+                {
+                    HashSet<string> generatedCodes = new HashSet<string>();
 
-                MessageBox.Show("Thêm giftcode thành công!");
-                this.Close();
+                    for (int i = 0; i < totalGiftCodes; i++)
+                    {
+                        string code;
+                        int retryCount = 0;
+                        const int maxRetries = 20;
+
+                        do
+                        {
+                            code = GenerateRandomCode(6);
+                            retryCount++;
+
+                            if (retryCount > maxRetries)
+                            {
+                                MessageBox.Show("Không thể tạo đủ mã giftcode không trùng. Thử lại sau.");
+                                return;
+                            }
+
+                        } while (generatedCodes.Contains(code) || IsCodeExistsInDatabase(code));
+
+                        generatedCodes.Add(code);
+
+                        var parameters = new Dictionary<string, object>{{"@code", code }
+                            ,{"@amount", amountPerCode }
+                            ,{"@start", start }, {"@end", end },{"@need_active", needActive },
+                            {"@items_reward", itemsReward },{"@type_gift", typeGift }};
+
+                        database.ExecuteNonQuery(sql, parameters);
+                    }
+
+                    if (checkBox2.Checked)
+                    {
+                        SaveGiftcodesToSheet(generatedCodes.ToList());
+                    }
+
+                }
+
+                MessageBox.Show($"Thêm thành công {totalGiftCodes} giftcode!");
+                //this.Close();
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Lỗi: " + ex.Message);
             }
         }
+
+        private string GenerateRandomCode(int length)
+        {
+            const string chars = "abcdefghijklmnopqrstuvwxyz0123456789";
+            Random random = new Random();
+            return new string(Enumerable.Repeat(chars, length)
+                .Select(s => s[random.Next(s.Length)]).ToArray());
+        }
+
+
+        private bool IsCodeExistsInDatabase(string code)
+        {
+            string query = "SELECT COUNT(*) FROM gift_code WHERE CODE = @code";
+            Dictionary<string, object> parameters = new Dictionary<string, object> { { "@code", code } };
+
+            var cc = database.ExecuteNonQueryHe(query, parameters);
+            return Convert.ToInt32(cc) > 0;
+        }
+
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comboBox1_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void checkBox2_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void SaveGiftcodesToSheet(List<string> codes)
+        {
+            if (codes == null || codes.Count == 0)
+                return;
+
+            string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, $"giftcodes_{DateTime.Now:yyyyMMdd_HHmmss}.csv");
+
+            using (StreamWriter writer = new StreamWriter(filePath, false, Encoding.UTF8))
+            {
+                writer.WriteLine("GiftCode"); 
+                foreach (var code in codes)
+                {
+                    writer.WriteLine(code);
+                }
+            }
+
+            MessageBox.Show($"Đã lưu giftcode ra file:\n{filePath}");
+        }
+
     }
 }

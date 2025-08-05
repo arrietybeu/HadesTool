@@ -61,9 +61,8 @@
             panel1.Controls.Add(label3);
             panel1.Controls.Add(pictureBox2);
             panel1.Location = new Point(0, -2);
-            panel1.Margin = new Padding(3, 4, 3, 4);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1147, 31);
+            panel1.Size = new Size(1004, 23);
             panel1.TabIndex = 6;
             panel1.Paint += panel1_Paint;
             // 
@@ -71,9 +70,9 @@
             // 
             label3.AutoSize = true;
             label3.ForeColor = Color.Silver;
-            label3.Location = new Point(3, 4);
+            label3.Location = new Point(3, 3);
             label3.Name = "label3";
-            label3.Size = new Size(62, 20);
+            label3.Size = new Size(50, 15);
             label3.TabIndex = 7;
             label3.Text = "Project: ";
             label3.Click += label3_Click;
@@ -81,10 +80,9 @@
             // pictureBox2
             // 
             pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
-            pictureBox2.Location = new Point(1112, 2);
-            pictureBox2.Margin = new Padding(3, 4, 3, 4);
+            pictureBox2.Location = new Point(973, 2);
             pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(25, 29);
+            pictureBox2.Size = new Size(22, 22);
             pictureBox2.TabIndex = 6;
             pictureBox2.TabStop = false;
             pictureBox2.Click += pictureBox2_Click;
@@ -99,9 +97,11 @@
             groupBox1.Controls.Add(button2);
             groupBox1.Controls.Add(dataGridView1);
             groupBox1.ForeColor = Color.Silver;
-            groupBox1.Location = new Point(12, 36);
+            groupBox1.Location = new Point(10, 27);
+            groupBox1.Margin = new Padding(3, 2, 3, 2);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(1122, 445);
+            groupBox1.Padding = new Padding(3, 2, 3, 2);
+            groupBox1.Size = new Size(982, 334);
             groupBox1.TabIndex = 7;
             groupBox1.TabStop = false;
             groupBox1.Text = "Giftcode";
@@ -111,10 +111,9 @@
             // 
             button1.FlatStyle = FlatStyle.Flat;
             button1.ForeColor = SystemColors.ButtonHighlight;
-            button1.Location = new Point(998, 197);
-            button1.Margin = new Padding(3, 4, 3, 4);
+            button1.Location = new Point(873, 148);
             button1.Name = "button1";
-            button1.Size = new Size(86, 52);
+            button1.Size = new Size(75, 39);
             button1.TabIndex = 10;
             button1.Text = "DELETE ALL";
             button1.UseVisualStyleBackColor = true;
@@ -124,10 +123,9 @@
             // 
             button6.FlatStyle = FlatStyle.Flat;
             button6.ForeColor = SystemColors.ButtonHighlight;
-            button6.Location = new Point(998, 158);
-            button6.Margin = new Padding(3, 4, 3, 4);
+            button6.Location = new Point(873, 118);
             button6.Name = "button6";
-            button6.Size = new Size(86, 31);
+            button6.Size = new Size(75, 23);
             button6.TabIndex = 9;
             button6.Text = "DELETE";
             button6.UseVisualStyleBackColor = true;
@@ -136,10 +134,9 @@
             // 
             button5.FlatStyle = FlatStyle.Flat;
             button5.ForeColor = SystemColors.ButtonHighlight;
-            button5.Location = new Point(998, 257);
-            button5.Margin = new Padding(3, 4, 3, 4);
+            button5.Location = new Point(873, 193);
             button5.Name = "button5";
-            button5.Size = new Size(86, 31);
+            button5.Size = new Size(75, 23);
             button5.TabIndex = 8;
             button5.Text = "Clear";
             button5.UseVisualStyleBackColor = true;
@@ -149,10 +146,9 @@
             // 
             button4.FlatStyle = FlatStyle.Flat;
             button4.ForeColor = SystemColors.ButtonHighlight;
-            button4.Location = new Point(998, 119);
-            button4.Margin = new Padding(3, 4, 3, 4);
+            button4.Location = new Point(873, 89);
             button4.Name = "button4";
-            button4.Size = new Size(86, 31);
+            button4.Size = new Size(75, 23);
             button4.TabIndex = 7;
             button4.Text = "ADD";
             button4.UseVisualStyleBackColor = true;
@@ -162,10 +158,9 @@
             // 
             button3.FlatStyle = FlatStyle.Flat;
             button3.ForeColor = SystemColors.ButtonHighlight;
-            button3.Location = new Point(998, 77);
-            button3.Margin = new Padding(3, 4, 3, 4);
+            button3.Location = new Point(873, 58);
             button3.Name = "button3";
-            button3.Size = new Size(86, 31);
+            button3.Size = new Size(75, 23);
             button3.TabIndex = 6;
             button3.Text = "EDIT";
             button3.UseVisualStyleBackColor = true;
@@ -175,10 +170,9 @@
             // 
             button2.FlatStyle = FlatStyle.Flat;
             button2.ForeColor = SystemColors.ButtonHighlight;
-            button2.Location = new Point(998, 38);
-            button2.Margin = new Padding(3, 4, 3, 4);
+            button2.Location = new Point(873, 28);
             button2.Name = "button2";
-            button2.Size = new Size(86, 31);
+            button2.Size = new Size(75, 23);
             button2.TabIndex = 3;
             button2.Text = "SELECT";
             button2.UseVisualStyleBackColor = true;
@@ -193,11 +187,12 @@
             dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView1.Columns.AddRange(new DataGridViewColumn[] { Column1, Column2, Column3, Column4, Column5, Column6, Column7, Column8 });
             dataGridView1.GridColor = SystemColors.Control;
-            dataGridView1.Location = new Point(20, 38);
+            dataGridView1.Location = new Point(18, 28);
+            dataGridView1.Margin = new Padding(3, 2, 3, 2);
             dataGridView1.Name = "dataGridView1";
             dataGridView1.RowHeadersVisible = false;
             dataGridView1.RowHeadersWidth = 51;
-            dataGridView1.Size = new Size(944, 382);
+            dataGridView1.Size = new Size(826, 286);
             dataGridView1.TabIndex = 0;
             dataGridView1.CellContentClick += dataGridView1_CellContentClick;
             // 
@@ -261,12 +256,13 @@
             // 
             // Giftcode
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1146, 500);
+            ClientSize = new Size(1003, 375);
             Controls.Add(groupBox1);
             Controls.Add(panel1);
             FormBorderStyle = FormBorderStyle.None;
+            Margin = new Padding(3, 2, 3, 2);
             Name = "Giftcode";
             Text = "Giftcode";
             Load += Giftcode_Load;

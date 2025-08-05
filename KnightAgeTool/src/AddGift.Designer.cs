@@ -37,6 +37,9 @@
             label3 = new Label();
             pictureBox2 = new PictureBox();
             groupBox1 = new GroupBox();
+            checkBox2 = new CheckBox();
+            comboBox1 = new ComboBox();
+            label9 = new Label();
             StartDataTime = new Guna.UI2.WinForms.Guna2DateTimePicker();
             EndDataTime = new Guna.UI2.WinForms.Guna2DateTimePicker();
             button2 = new Button();
@@ -65,7 +68,7 @@
             panel1.Location = new Point(0, 0);
             panel1.Margin = new Padding(3, 4, 3, 4);
             panel1.Name = "panel1";
-            panel1.Size = new Size(581, 31);
+            panel1.Size = new Size(832, 31);
             panel1.TabIndex = 8;
             // 
             // label3
@@ -81,7 +84,7 @@
             // pictureBox2
             // 
             pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
-            pictureBox2.Location = new Point(553, -2);
+            pictureBox2.Location = new Point(804, -2);
             pictureBox2.Margin = new Padding(3, 4, 3, 4);
             pictureBox2.Name = "pictureBox2";
             pictureBox2.Size = new Size(25, 29);
@@ -91,6 +94,9 @@
             // 
             // groupBox1
             // 
+            groupBox1.Controls.Add(checkBox2);
+            groupBox1.Controls.Add(comboBox1);
+            groupBox1.Controls.Add(label9);
             groupBox1.Controls.Add(StartDataTime);
             groupBox1.Controls.Add(EndDataTime);
             groupBox1.Controls.Add(button2);
@@ -107,12 +113,45 @@
             groupBox1.Controls.Add(codeBox);
             groupBox1.Controls.Add(label1);
             groupBox1.ForeColor = Color.Silver;
-            groupBox1.Location = new Point(12, 38);
+            groupBox1.Location = new Point(11, 37);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(556, 400);
+            groupBox1.Size = new Size(805, 484);
             groupBox1.TabIndex = 1;
             groupBox1.TabStop = false;
             groupBox1.Text = "Arriety";
+            groupBox1.Enter += groupBox1_Enter;
+            // 
+            // checkBox2
+            // 
+            checkBox2.AutoSize = true;
+            checkBox2.Location = new Point(25, 422);
+            checkBox2.Name = "checkBox2";
+            checkBox2.Size = new Size(120, 24);
+            checkBox2.TabIndex = 37;
+            checkBox2.Text = "Save ra Sheet";
+            checkBox2.UseVisualStyleBackColor = true;
+            checkBox2.CheckedChanged += checkBox2_CheckedChanged;
+            // 
+            // comboBox1
+            // 
+            comboBox1.FlatStyle = FlatStyle.Flat;
+            comboBox1.ForeColor = SystemColors.ButtonHighlight;
+            comboBox1.FormattingEnabled = true;
+            comboBox1.Location = new Point(133, 311);
+            comboBox1.Margin = new Padding(3, 4, 3, 4);
+            comboBox1.Name = "comboBox1";
+            comboBox1.Size = new Size(638, 28);
+            comboBox1.TabIndex = 36;
+            comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged_1;
+            // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Location = new Point(25, 321);
+            label9.Name = "label9";
+            label9.Size = new Size(95, 20);
+            label9.TabIndex = 35;
+            label9.Text = "Quantity gift:";
             // 
             // StartDataTime
             // 
@@ -125,7 +164,8 @@
             StartDataTime.MinDate = new DateTime(1753, 1, 1, 0, 0, 0, 0);
             StartDataTime.Name = "StartDataTime";
             StartDataTime.ShadowDecoration.CustomizableEdges = customizableEdges2;
-            StartDataTime.Size = new Size(375, 28);
+            StartDataTime.ShowUpDown = true;
+            StartDataTime.Size = new Size(638, 28);
             StartDataTime.TabIndex = 34;
             StartDataTime.Value = new DateTime(2025, 8, 5, 0, 36, 50, 641);
             // 
@@ -140,17 +180,17 @@
             EndDataTime.MinDate = new DateTime(1753, 1, 1, 0, 0, 0, 0);
             EndDataTime.Name = "EndDataTime";
             EndDataTime.ShadowDecoration.CustomizableEdges = customizableEdges4;
-            EndDataTime.Size = new Size(375, 28);
+            EndDataTime.Size = new Size(638, 28);
             EndDataTime.TabIndex = 33;
             EndDataTime.Value = new DateTime(2025, 8, 5, 0, 36, 50, 641);
             // 
             // button2
             // 
-            button2.Location = new Point(424, 339);
+            button2.Location = new Point(580, 370);
             button2.Name = "button2";
-            button2.Size = new Size(84, 29);
+            button2.Size = new Size(191, 76);
             button2.TabIndex = 32;
-            button2.Text = "ADD ITEM";
+            button2.Text = "ADD GIFTCODE";
             button2.UseVisualStyleBackColor = true;
             button2.Click += button2_Click;
             // 
@@ -159,16 +199,16 @@
             typeBox.FlatStyle = FlatStyle.Flat;
             typeBox.ForeColor = SystemColors.ButtonHighlight;
             typeBox.FormattingEnabled = true;
-            typeBox.Location = new Point(133, 126);
+            typeBox.Location = new Point(133, 125);
             typeBox.Margin = new Padding(3, 4, 3, 4);
             typeBox.Name = "typeBox";
-            typeBox.Size = new Size(375, 28);
+            typeBox.Size = new Size(638, 28);
             typeBox.TabIndex = 31;
             // 
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new Point(25, 134);
+            label8.Location = new Point(25, 133);
             label8.Name = "label8";
             label8.Size = new Size(43, 20);
             label8.TabIndex = 30;
@@ -178,9 +218,9 @@
             // 
             button1.Location = new Point(133, 263);
             button1.Name = "button1";
-            button1.Size = new Size(375, 29);
+            button1.Size = new Size(638, 29);
             button1.TabIndex = 29;
-            button1.Text = "ADD ITEM";
+            button1.Text = "THÊM ITEM VÀO GIFTCODE NÀY";
             button1.UseVisualStyleBackColor = true;
             button1.Click += button1_Click;
             // 
@@ -197,7 +237,7 @@
             // checkBox1
             // 
             checkBox1.AutoSize = true;
-            checkBox1.Location = new Point(25, 344);
+            checkBox1.Location = new Point(25, 385);
             checkBox1.Name = "checkBox1";
             checkBox1.Size = new Size(310, 24);
             checkBox1.TabIndex = 27;
@@ -238,7 +278,7 @@
             amountBox.Location = new Point(133, 76);
             amountBox.Margin = new Padding(3, 4, 3, 4);
             amountBox.Name = "amountBox";
-            amountBox.Size = new Size(375, 28);
+            amountBox.Size = new Size(638, 28);
             amountBox.TabIndex = 21;
             // 
             // label2
@@ -258,7 +298,7 @@
             codeBox.Location = new Point(133, 27);
             codeBox.Margin = new Padding(3, 4, 3, 4);
             codeBox.Name = "codeBox";
-            codeBox.Size = new Size(375, 28);
+            codeBox.Size = new Size(638, 28);
             codeBox.TabIndex = 19;
             codeBox.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
             // 
@@ -275,7 +315,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(580, 450);
+            ClientSize = new Size(831, 533);
             Controls.Add(groupBox1);
             Controls.Add(panel1);
             FormBorderStyle = FormBorderStyle.None;
@@ -311,5 +351,8 @@
         private Button button2;
         private Guna.UI2.WinForms.Guna2DateTimePicker EndDataTime;
         private Guna.UI2.WinForms.Guna2DateTimePicker StartDataTime;
+        private Label label9;
+        private ComboBox comboBox1;
+        private CheckBox checkBox2;
     }
 }

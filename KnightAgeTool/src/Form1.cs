@@ -25,6 +25,9 @@ namespace KnightAgeTool.src
 
 
         DataBaseManager database1;
+
+        public static List<ItemInfo> AllItems = new List<ItemInfo>();
+
         public Form1()
         {
             InitializeComponent();
@@ -108,6 +111,9 @@ namespace KnightAgeTool.src
 
                 if (this.database.Connect())
                 {
+
+                    this.LoadAllItems();
+
                     this.Hide();
 
                     using (Giftcode giftcodoe = new Giftcode(this.database, database1))
@@ -115,6 +121,7 @@ namespace KnightAgeTool.src
                         giftcodoe.StartPosition = FormStartPosition.CenterParent;
                         giftcodoe.ShowDialog();
                     }
+
 
                     this.Close();// close form 1
                 }
@@ -162,6 +169,33 @@ namespace KnightAgeTool.src
                 }
             }
         }
+
+        private void LoadAllItems()
+        {
+            try
+            {
+                var table = database1.ExecuteQuery("SELECT id, name, icon_id FROM item_template;");
+                AllItems.Clear();
+
+                foreach (DataRow row in table.Rows)
+                {
+                    AllItems.Add(new ItemInfo
+                    {
+                        Id = Convert.ToInt32(row["id"]),
+                        Name = row["name"].ToString(),
+                        IconId = Convert.ToInt32(row["icon_id"]),
+                    });
+                }
+
+                MessageBox.Show($"Đã load {AllItems.Count} item từ database1.");
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi load item: " + ex.Message);
+            }
+        }
+
 
         private void button3_Click(object sender, EventArgs e)
         {

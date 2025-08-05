@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddGift));
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges5 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges6 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges7 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
-            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges8 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges1 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges2 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges3 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
+            Guna.UI2.WinForms.Suite.CustomizableEdges customizableEdges4 = new Guna.UI2.WinForms.Suite.CustomizableEdges();
             panel1 = new Panel();
             label3 = new Label();
             pictureBox2 = new PictureBox();
@@ -117,14 +117,14 @@
             // StartDataTime
             // 
             StartDataTime.Checked = true;
-            StartDataTime.CustomizableEdges = customizableEdges5;
+            StartDataTime.CustomizableEdges = customizableEdges1;
             StartDataTime.Font = new Font("Segoe UI", 9F);
             StartDataTime.Format = DateTimePickerFormat.Long;
             StartDataTime.Location = new Point(133, 173);
             StartDataTime.MaxDate = new DateTime(9998, 12, 31, 0, 0, 0, 0);
             StartDataTime.MinDate = new DateTime(1753, 1, 1, 0, 0, 0, 0);
             StartDataTime.Name = "StartDataTime";
-            StartDataTime.ShadowDecoration.CustomizableEdges = customizableEdges6;
+            StartDataTime.ShadowDecoration.CustomizableEdges = customizableEdges2;
             StartDataTime.Size = new Size(375, 28);
             StartDataTime.TabIndex = 34;
             StartDataTime.Value = new DateTime(2025, 8, 5, 0, 36, 50, 641);
@@ -132,14 +132,14 @@
             // EndDataTime
             // 
             EndDataTime.Checked = true;
-            EndDataTime.CustomizableEdges = customizableEdges7;
+            EndDataTime.CustomizableEdges = customizableEdges3;
             EndDataTime.Font = new Font("Segoe UI", 9F);
             EndDataTime.Format = DateTimePickerFormat.Long;
             EndDataTime.Location = new Point(133, 220);
             EndDataTime.MaxDate = new DateTime(9998, 12, 31, 0, 0, 0, 0);
             EndDataTime.MinDate = new DateTime(1753, 1, 1, 0, 0, 0, 0);
             EndDataTime.Name = "EndDataTime";
-            EndDataTime.ShadowDecoration.CustomizableEdges = customizableEdges8;
+            EndDataTime.ShadowDecoration.CustomizableEdges = customizableEdges4;
             EndDataTime.Size = new Size(375, 28);
             EndDataTime.TabIndex = 33;
             EndDataTime.Value = new DateTime(2025, 8, 5, 0, 36, 50, 641);

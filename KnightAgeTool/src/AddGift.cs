@@ -15,6 +15,8 @@ namespace KnightAgeTool.src
     public partial class AddGift : Form
     {
         private DataBaseManager database;
+
+        private AddItem itemView = null;
         public AddGift(DataBaseManager dataBaseManager)
         {
             InitializeComponent();
@@ -81,7 +83,15 @@ namespace KnightAgeTool.src
 
         private void button1_Click(object sender, EventArgs e)
         {
+            if (itemView != null && !itemView.IsDisposed)
+            {
+                itemView.Close();
+            }
 
+            AddItem view = new AddItem();
+            view.Show();
+
+            this.itemView = view;
         }
 
         private void button2_Click(object sender, EventArgs e)

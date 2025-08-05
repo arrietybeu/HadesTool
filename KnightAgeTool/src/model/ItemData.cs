@@ -10,6 +10,8 @@ namespace KnightAgeTool.src.model
 
     internal class ItemData
     {
+
+
         [JsonPropertyName("temp_id")]
         public int TempId { get; set; }
 
@@ -28,4 +30,17 @@ namespace KnightAgeTool.src.model
         [JsonPropertyName("param")]
         public int Param { get; set; }
     }
+
+    public class ItemInfo
+    {
+        public int Id { get; set; } 
+        public string Name { get; set; }
+        public int IconId { get; set; }
+
+        public override string ToString()
+        {
+            return $"{Name} (ID: {Id})";
+        }
+    }
+
 }

@@ -184,5 +184,25 @@ namespace KnightAgeTool.src.model
 
             return dataTable;
         }
+
+        public DataTable ExecuteQuery(string query, params MySqlParameter[] parameters)
+        {
+            if (!isConnected) Connect();
+
+            using (var cmd = new MySqlCommand(query, connection))
+            {
+                if (parameters != null)
+                    cmd.Parameters.AddRange(parameters);
+
+                using (var adapter = new MySqlDataAdapter(cmd))
+                {
+                    DataTable dt = new DataTable();
+                    adapter.Fill(dt);
+                    return dt;
+                }
+            }
+        }
+
     }
+
 }
